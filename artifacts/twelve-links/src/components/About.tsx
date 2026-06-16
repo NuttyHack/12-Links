@@ -12,7 +12,7 @@ export default function About() {
     { name: "Mpoka J.", role: "Software Engineer & Project Lead", bio: "Guiding the development lifecycle and crafting intuitive, high-performance user interfaces that bring product vision to life.", color: "from-blue-500 to-indigo-700" },
     { name: "Mageza L.", role: "Cybersecurity Engineer", bio: "Securing the platform's infrastructure, mitigating vulnerabilities, and protecting core user data from modern cyber threats.", color: "from-purple-500 to-violet-700" },
     { name: "George L.", role: "Security Architect", bio: "Designing robust end-to-end security frameworks and governance protocols to ensure ultimate platform compliance and integrity.", color: "from-pink-500 to-rose-700" },
-    { name: "Mpayipheli S.", role: "Frontend Engineer", bio: "Building responsive, seamless, and highly interactive client-side applications that deliver an exceptional user experience.", color: "from-red-500 to-orange-600" },
+    { name: "Mpayipheli S.", role: "Frontend Engineer", bio: "Building responsive, seamless, and highly interactive client-side applications that deliver an exceptional user experience.", color: "from-red-500 to-orange-600" , image: "/team/sairo.jpg" },
     { name: " Aphane S.", role: "Data Scientist", bio: "Extracting actionable insights from complex datasets and building predictive models to optimize platform growth and user engagement.", color: "from-teal-500 to-green-700" }
   ];
 
