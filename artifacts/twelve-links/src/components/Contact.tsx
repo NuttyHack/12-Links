@@ -8,7 +8,6 @@ const inputCls =
   "w-full bg-background border border-white/10 rounded-md px-4 py-3 text-white focus:outline-none focus:border-[#00FF88]/50 focus:ring-1 focus:ring-[#00FF88]/50 transition-colors placeholder-gray-600";
 const labelCls = "block text-sm font-medium text-gray-400 mb-2";
 
-// Define strict prop types for sub-forms to satisfy Vite's compiler
 interface FormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   loading: boolean;
@@ -33,10 +32,10 @@ function Field({ label, required, children }: { label: string; required?: boolea
 function AIForm({ onSubmit, loading }: FormProps) {
   return (
     <form onSubmit={onSubmit} className="space-y-5">
-      <input type="hidden" name="inquiry_type" value="AI Solution Request" />
+      <input type="hidden" name="title" value="AI Solution Request" />
       <div className="grid md:grid-cols-2 gap-5">
         <Field label="Full Name" required>
-          <input required name="user_name" type="text" className={inputCls} />
+          <input required name="name" type="text" className={inputCls} />
         </Field>
         <Field label="Email Address" required>
           <input required name="user_email" type="email" className={inputCls} />
@@ -90,10 +89,10 @@ function AIForm({ onSubmit, loading }: FormProps) {
 function TalentForm({ onSubmit, loading }: FormProps) {
   return (
     <form onSubmit={onSubmit} className="space-y-5">
-      <input type="hidden" name="inquiry_type" value="Talent Partnership" />
+      <input type="hidden" name="title" value="Talent Partnership" />
       <div className="grid md:grid-cols-2 gap-5">
         <Field label="Full Name" required>
-          <input required name="user_name" type="text" className={inputCls} />
+          <input required name="name" type="text" className={inputCls} />
         </Field>
         <Field label="Email Address" required>
           <input required name="user_email" type="email" className={inputCls} />
@@ -136,10 +135,10 @@ function TalentForm({ onSubmit, loading }: FormProps) {
 function EnterpriseForm({ onSubmit, loading }: FormProps) {
   return (
     <form onSubmit={onSubmit} className="space-y-5">
-      <input type="hidden" name="inquiry_type" value="Enterprise Inquiry" />
+      <input type="hidden" name="title" value="Enterprise Inquiry" />
       <div className="grid md:grid-cols-2 gap-5">
         <Field label="Full Name" required>
-          <input required name="user_name" type="text" className={inputCls} />
+          <input required name="name" type="text" className={inputCls} />
         </Field>
         <Field label="Job Title" required>
           <input required name="job_title" type="text" className={inputCls} />
@@ -185,17 +184,16 @@ function EnterpriseForm({ onSubmit, loading }: FormProps) {
 function GeneralForm({ onSubmit, loading }: FormProps) {
   return (
     <form onSubmit={onSubmit} className="space-y-5">
-      <input type="hidden" name="inquiry_type" value="General Inquiry" />
       <div className="grid md:grid-cols-2 gap-5">
         <Field label="Full Name" required>
-          <input required name="user_name" type="text" className={inputCls} />
+          <input required name="name" type="text" className={inputCls} />
         </Field>
         <Field label="Email Address" required>
           <input required name="user_email" type="email" className={inputCls} />
         </Field>
       </div>
       <Field label="Subject Line" required>
-        <input required name="subject_line" type="text" className={inputCls} placeholder="What's this about?" />
+        <input required name="title" type="text" className={inputCls} placeholder="What's this about?" />
       </Field>
       <Field label="Message" required>
         <textarea required name="message" rows={5} className={inputCls} placeholder="How can we help?" />
@@ -214,10 +212,9 @@ function DefaultForm({ onSubmit, loading, subject, setSubject }: DefaultFormProp
   ];
   return (
     <form onSubmit={onSubmit} className="space-y-5">
-      <input type="hidden" name="inquiry_type" value="General Default Inquiry" />
       <div className="grid md:grid-cols-2 gap-5">
         <Field label="Full Name" required>
-          <input required name="user_name" type="text" className={inputCls} />
+          <input required name="name" type="text" className={inputCls} />
         </Field>
         <Field label="Email Address" required>
           <input required name="user_email" type="email" className={inputCls} />
@@ -228,7 +225,7 @@ function DefaultForm({ onSubmit, loading, subject, setSubject }: DefaultFormProp
           <input name="company" type="text" className={inputCls} />
         </Field>
         <Field label="Subject" required>
-          <select required name="subject_line" value={subject} onChange={(e) => setSubject(e.target.value)} className={inputCls}>
+          <select required name="title" value={subject} onChange={(e) => setSubject(e.target.value)} className={inputCls}>
             <option value="">Select a subject</option>
             {inquiryTypes.map((t) => (
               <option key={t.id} value={t.id}>{t.label}</option>
@@ -268,13 +265,12 @@ export default function Contact() {
     { id: "general", title: "General Inquiry", icon: MessageSquare },
   ];
 
- const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setLoading(true);
 
     const targetForm = e.currentTarget;
 
-    // Explicitly pull variables safely from Vite's compilation meta mapping
     const SERVICE_ID = import.meta.env.VITE_EMAILJS_SERVICE_ID || "";
     const TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || "";
     const PUBLIC_KEY = import.meta.env.VITE_EMAILJS_PUBLIC_KEY || "";
@@ -290,7 +286,6 @@ export default function Contact() {
     }
 
     try {
-      // Direct option passing configuration structure
       await emailjs.sendForm(SERVICE_ID, TEMPLATE_ID, targetForm, {
         publicKey: PUBLIC_KEY,
       });
@@ -312,6 +307,7 @@ export default function Contact() {
       setLoading(false);
     }
   };
+
   const renderForm = () => {
     const baseProps = { onSubmit: handleSubmit, loading };
     switch (subject) {
@@ -330,7 +326,6 @@ export default function Contact() {
 
   return (
     <div className="pb-24 bg-background min-h-screen">
-      {/* Page Hero */}
       <section className="pt-24 pb-16 relative overflow-hidden">
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-3xl h-[400px] bg-[#00FF88]/5 rounded-full blur-[120px] pointer-events-none" />
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
@@ -350,7 +345,6 @@ export default function Contact() {
       </section>
 
       <section className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        {/* Inquiry Type Cards */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-10">
           {inquiryTypes.map((type) => (
             <button
@@ -368,7 +362,6 @@ export default function Contact() {
           ))}
         </div>
 
-        {/* Helper text */}
         {subject && (
           <motion.p initial={{ opacity: 0, y: -6 }} animate={{ opacity: 1, y: 0 }} className="text-xs text-gray-500 font-mono mb-6">
             Showing fields for:{" "}
@@ -381,7 +374,6 @@ export default function Contact() {
         )}
 
         <div className="grid lg:grid-cols-5 gap-12">
-          {/* Form panel */}
           <div className="lg:col-span-3 bg-card border border-white/10 p-8 rounded-2xl relative shadow-xl overflow-hidden">
             <div className="absolute top-0 right-0 w-32 h-32 bg-[#00FF88]/5 rounded-full blur-2xl pointer-events-none" />
             <AnimatePresence mode="wait">
@@ -398,12 +390,11 @@ export default function Contact() {
             </AnimatePresence>
           </div>
 
-          {/* Sidebar */}
           <div className="lg:col-span-2 space-y-8">
             <div className="bg-card border border-white/5 p-8 rounded-2xl">
               <h3 className="text-xl font-bold text-white mb-6">Contact Details</h3>
               <div className="space-y-4 text-gray-400 font-mono text-sm">
-                <p><span className="text-[#00FF88]">Email:</span> info@twelvelinks.co.za</p>
+                <p><span className="text-[#00FF88]">Email:</span> 12links.co.za</p>
                 <p><span className="text-[#00FF88]">HQ:</span> Johannesburg, South Africa</p>
                 <p><span className="text-[#00FF88]">Response:</span> Within 24 hours</p>
                 <p><span className="text-[#00FF88]">Coverage:</span> Pan-African, Global</p>
