@@ -98,15 +98,23 @@ export default function Footer() {
     <button 
       type="button" 
       onClick={() => {
+        // 1. Inject the Webpushr script immediately if it hasn't loaded yet
+        if (!window.webpushr) {
+          window.webpushr = window.webpushr || function() { (window.webpushr.q = window.webpushr.q || []).push(arguments); };
+          const js = document.createElement("script");
+          js.async = true;
+          js.src = "https://cdn.webpushr.com/app.min.js";
+          document.head.appendChild(js);
+          window.webpushr('setup', {'key': 'BPdDd3iPbNoUtUJjQMXFt59J5nevtVku6Jtw67QVfxPV7ozzo2tdUIPEO9Z5t2U3hqBZSGQpCLz4Yp4G4MxYpiM'});
+        }
+
+        // 2. Grab the input text value and trigger the alert
         const emailEl = document.getElementById('webpushr-email-input') as HTMLInputElement;
-        if (emailEl && emailEl.value && typeof window.webpushr === 'function') {
+        if (emailEl && emailEl.value) {
           window.webpushr('email', emailEl.value);
         }
-        if (typeof window.webpushr === 'function') {
-          window.webpushr('showPrompt');
-        } else if ('Notification' in window) {
-          Notification.requestPermission();
-        }
+        
+        window.webpushr('showPrompt');
       }}
       className="bg-[#00FF88] text-black px-4 py-2 rounded-md text-sm font-bold uppercase hover:bg-[#00FF88]/80 transition-colors shrink-0"
     >
