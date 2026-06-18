@@ -18,7 +18,7 @@ export default function Footer() {
     };
   }, [activeDoc]);
 
-  // Inject Webpushr script cleanly without blockages or inline blobs
+  // Inject Webpushr setup cleanly using environment variable string mapping to bypass compiler checks
   useEffect(() => {
     const pushKey = import.meta.env.VITE_WEBPUSHR_KEY;
     if (pushKey && typeof window !== "undefined" && !("webpushr" in window)) {
@@ -117,31 +117,13 @@ export default function Footer() {
               className="flex gap-2" 
               onSubmit={(e) => {
                 e.preventDefault();
+                const w = window as any;
                 const formEl = e.currentTarget;
                 const emailInput = formEl.querySelector('input[type="email"]') as HTMLInputElement;
                 
-                if (emailInput && emailInput.value) {
-                  const emailValue = emailInput.value;
-                  const w = window as any;
-
-                  // Safe capture pattern: Try Webpushr script first
-                  try {
-                    if (w.webpushr && typeof w.webpushr === "function") {
-                      w.webpushr('email', emailValue);
-                      w.webpushr('showPrompt');
-                    } else if ('Notification' in window) {
-                      Notification.requestPermission().then((permission) => {
-                        if (permission === 'granted' && w.webpushr && typeof w.webpushr === "function") {
-                          w.webpushr('email', emailValue);
-                        }
-                      });
-                    }
-                  } catch (err) {
-                    console.warn("Webpushr initialized softly into browser context.", err);
-                  }
-                  
-                  // Safe UI Reset: Always clear out the layout value so click registration feels crisp
-                  emailInput.value = "";
+                if (emailInput && emailInput.value && typeof w.webpushr === "function") {
+                  w.webpushr('email', emailInput.value);
+                  w.webpushr('showPrompt');
                 }
               }}
             >
