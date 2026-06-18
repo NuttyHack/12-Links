@@ -64,7 +64,7 @@ export default function Footer() {
               <li><Link href="/" className="hover:text-[#00FF88] transition-colors">Home</Link></li>
               <li><Link href="/about" className="hover:text-[#00FF88] transition-colors">About</Link></li>
               <li><Link href="/services" className="hover:text-[#00FF88] transition-colors">Services</Link></li>
-              <li><Link href="/industries" className="hover:text-[#00FF88] transition-colors">Interdustries</Link></li>
+              <li><Link href="/industries" className="hover:text-[#00FF88] transition-colors">Industries</Link></li>
               <li><Link href="/contact" className="hover:text-[#00FF88] transition-colors">Contact</Link></li>
             </ul>
           </div>
@@ -103,7 +103,7 @@ export default function Footer() {
       {/* ── FORCE-ISOLATED FULL-SCREEN OVERLAY ── */}
       <AnimatePresence mode="wait">
         {activeDoc && (
-          <div className="fixed inset-0 z-[99999] flex justify-end overflow-hidden">
+          <div className="fixed inset-0 z-[99999] flex justify-end overflow-hidden h-screen max-h-screen">
             
             {/* Backdrop Layer */}
             <motion.div
@@ -120,10 +120,10 @@ export default function Footer() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.35, ease: "easeInOut" }}
-              className="relative w-full max-w-2xl bg-[#0B0F19] border-l border-white/10 shadow-2xl h-full flex flex-col z-10"
+              className="relative w-full max-w-2xl bg-[#0B0F19] border-l border-white/10 shadow-2xl h-screen max-h-screen flex flex-col z-10 overflow-hidden"
             >
               {/* FIXED STICKY HEADER FRAME */}
-              <div className="flex justify-between items-center p-6 md:p-10 pb-6 border-b border-white/5 bg-[#0B0F19] shrink-0">
+              <div className="flex justify-between items-center p-6 md:p-10 pb-6 border-b border-white/5 bg-[#0B0F19] shrink-0 w-full">
                 <div className="flex items-center gap-3">
                   {activeDoc === "privacy" ? (
                     <>
@@ -147,7 +147,7 @@ export default function Footer() {
                 <button 
                   type="button"
                   onClick={() => setActiveDoc(null)}
-                  className="p-2.5 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white rounded-full transition-all cursor-pointer focus:outline-none"
+                  className="p-2.5 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white rounded-full transition-all cursor-pointer focus:outline-none shrink-0"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -211,7 +211,7 @@ export default function Footer() {
               </div>
 
               {/* FIXED STICKY BOTTOM ACTION */}
-              <div className="p-6 md:p-10 pt-6 border-t border-white/5 bg-[#0B0F19] flex justify-end shrink-0">
+              <div className="p-6 md:p-10 pt-6 border-t border-white/5 bg-[#0B0F19] flex justify-end shrink-0 w-full">
                 <button
                   type="button"
                   onClick={() => setActiveDoc(null)}
