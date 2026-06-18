@@ -120,14 +120,14 @@ export default function Footer() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.35, ease: "easeInOut" }}
-              className="relative w-full max-w-2xl bg-[#0B0F19] border-l border-white/10 shadow-2xl h-screen max-h-screen flex flex-col z-10 overflow-hidden"
+              className="relative w-full max-w-2xl bg-[#0B0F19] border-l border-white/10 shadow-2xl h-screen max-h-screen flex flex-col z-10 overflow-hidden pt-20 md:pt-24"
             >
-              {/* FIXED STICKY HEADER FRAME */}
-              <div className="flex justify-between items-center p-6 md:p-10 pb-6 border-b border-white/5 bg-[#0B0F19] shrink-0 w-full">
+              {/* FIXED STICKY HEADER FRAME (Pushed down safely by layout padding) */}
+              <div className="flex justify-between items-center px-6 md:px-10 pb-6 border-b border-white/5 bg-[#0B0F19] shrink-0 w-full">
                 <div className="flex items-center gap-3">
                   {activeDoc === "privacy" ? (
                     <>
-                      <ShieldCheck className="w-6 h-6 text-[#00FF88]" />
+                      <ShieldCheck className="w-6 h-6 text-[#00FF88] shrink-0" />
                       <div>
                         <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">Privacy Policy</h3>
                         <p className="text-xs text-gray-500 font-mono">POPIA Compliant • June 2026</p>
@@ -135,7 +135,7 @@ export default function Footer() {
                     </>
                   ) : (
                     <>
-                      <FileText className="w-6 h-6 text-[#FFB800]" />
+                      <FileText className="w-6 h-6 text-[#FFB800] shrink-0" />
                       <div>
                         <h3 className="text-xl md:text-2xl font-bold text-white tracking-tight">Terms of Service</h3>
                         <p className="text-xs text-gray-500 font-mono">Service Terms • June 2026</p>
@@ -147,7 +147,8 @@ export default function Footer() {
                 <button 
                   type="button"
                   onClick={() => setActiveDoc(null)}
-                  className="p-2.5 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white rounded-full transition-all cursor-pointer focus:outline-none shrink-0"
+                  className="p-2.5 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white rounded-full transition-all cursor-pointer focus:outline-none shrink-0 ml-4"
+                  aria-label="Close document"
                 >
                   <X className="w-5 h-5" />
                 </button>
@@ -211,7 +212,7 @@ export default function Footer() {
               </div>
 
               {/* FIXED STICKY BOTTOM ACTION */}
-              <div className="p-6 md:p-10 pt-6 border-t border-white/5 bg-[#0B0F19] flex justify-end shrink-0 w-full">
+              <div className="p-6 md:p-10 pt-6 border-t border-white/5 bg-[#0B0F19] flex justify-end shrink-0 w-full mb-4">
                 <button
                   type="button"
                   onClick={() => setActiveDoc(null)}
