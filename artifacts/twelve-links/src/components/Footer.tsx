@@ -18,38 +18,13 @@ export default function Footer() {
     };
   }, [activeDoc]);
 
-  // Inject Webpushr setup cleanly using environment variable string mapping to bypass compiler checks
-  useEffect(() => {
-    const pushKey = import.meta.env.VITE_WEBPUSHR_KEY;
-    if (pushKey && typeof window !== "undefined" && !("webpushr" in window)) {
-      const w = window as any;
-      w.webpushr = w.webpushr || function () {
-        (w.webpushr.q = w.webpushr.q || []).push(arguments);
-      };
-      
-      const js = document.createElement("script");
-      js.id = "webpushr-jssdk";
-      js.async = true;
-      js.src = "https://cdn.webpushr.com/app.min.js";
-      
-      const firstScript = document.getElementsByTagName("script")[0];
-      if (firstScript && firstScript.parentNode) {
-        firstScript.parentNode.insertBefore(js, firstScript);
-      } else {
-        document.head.appendChild(js);
-      }
-      
-      w.webpushr('setup', { 'key': pushKey });
-    }
-  }, []);
-
   return (
     <footer className="bg-card border-t border-white/10 pt-16 pb-8 relative z-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid md:grid-cols-4 gap-12 mb-16">
+          
+          {/* ── Brand Description Block ── */}
           <div className="md:col-span-2">
-            
-            {/* ── Logo Block ── */}
             <div className="flex items-center gap-3 mb-4">
               <img 
                 src="/12links_logo.svg" 
@@ -65,39 +40,24 @@ export default function Footer() {
               Connecting Africa's tech talent with global opportunities. The future of technology delivery.
             </p>
             
-            {/* ── Real Social Icons ── */}
+            {/* Social Icons */}
             <div className="flex gap-4">
-              <a 
-                href="https://linkedin.com" 
-                target="_blank" 
-                rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-background border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#00FF88] hover:border-[#00FF88]/50 transition-all hover:scale-105"
-              >
+              <a href="https://linkedin.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-background border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#00FF88] hover:border-[#00FF88]/50 transition-all hover:scale-105">
                 <span className="sr-only">LinkedIn</span>
                 <Linkedin className="w-4 h-4" />
               </a>
-              <a 
-                href="https://x.com" 
-                target="_blank" 
-                rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-background border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#00FF88] hover:border-[#00FF88]/50 transition-all hover:scale-105"
-              >
+              <a href="https://x.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-background border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#00FF88] hover:border-[#00FF88]/50 transition-all hover:scale-105">
                 <span className="sr-only">Twitter</span>
                 <Twitter className="w-4 h-4" />
               </a>
-              <a 
-                href="https://github.com" 
-                target="_blank" 
-                rel="noreferrer"
-                className="w-10 h-10 rounded-full bg-background border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#00FF88] hover:border-[#00FF88]/50 transition-all hover:scale-105"
-              >
+              <a href="https://github.com" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-background border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#00FF88] hover:border-[#00FF88]/50 transition-all hover:scale-105">
                 <span className="sr-only">GitHub</span>
                 <Github className="w-4 h-4" />
               </a>
             </div>
           </div>
           
-          {/* ── Navigation Links ── */}
+          {/* ── Navigation Links Column ── */}
           <div>
             <h4 className="text-white font-bold mb-6">Navigation</h4>
             <ul className="space-y-3 text-gray-400 text-sm">
@@ -108,39 +68,8 @@ export default function Footer() {
               <li><Link href="/contact" className="hover:text-[#00FF88] transition-colors">Contact</Link></li>
             </ul>
           </div>
-          
-          {/* ── Subscription Form ── */}
-          <div>
-            <h4 className="text-white font-bold mb-6">Subscribe</h4>
-            <p className="text-gray-400 text-sm mb-4">Get updates on our platform and opportunities.</p>
-            <form 
-              className="flex gap-2" 
-              onSubmit={(e) => {
-                e.preventDefault();
-                const w = window as any;
-                const formEl = e.currentTarget;
-                const emailInput = formEl.querySelector('input[type="email"]') as HTMLInputElement;
-                
-                if (emailInput && emailInput.value && typeof w.webpushr === "function") {
-                  w.webpushr('email', emailInput.value);
-                  w.webpushr('showPrompt');
-                }
-              }}
-            >
-              <input 
-                type="email" 
-                required
-                placeholder="Email address" 
-                className="bg-background border border-white/10 rounded-md px-3 py-2 text-sm text-white focus:outline-none focus:border-[#00FF88]/50 w-full" 
-              />
-              <button 
-                type="submit" 
-                className="bg-[#00FF88] text-black px-4 py-2 rounded-md text-sm font-bold uppercase hover:bg-[#00FF88]/80 transition-colors shrink-0"
-              >
-                Join
-              </button>
-            </form>
-          </div>
+
+          <div className="hidden md:block" />
         </div>
 
         {/* ── Bottom Info Bar ── */}
@@ -152,7 +81,6 @@ export default function Footer() {
             <span>Johannesburg, ZA</span>
           </div>
           
-          {/* ── Legal Action Overlay Triggers ── */}
           <div className="flex gap-4 relative z-20">
             <button 
               type="button"
@@ -177,7 +105,7 @@ export default function Footer() {
         {activeDoc && (
           <div className="fixed inset-0 z-[99999] flex justify-end overflow-hidden">
             
-            {/* Backdrop Blur Layer */}
+            {/* Backdrop Layer */}
             <motion.div
               initial={{ opacity: 0 }}
               animate={{ opacity: 1 }}
@@ -192,10 +120,10 @@ export default function Footer() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "tween", duration: 0.35, ease: "easeInOut" }}
-              className="relative w-full max-w-2xl bg-[#0B0F19] border-l border-white/10 p-6 md:p-10 shadow-2xl overflow-y-auto h-full flex flex-col z-10"
+              className="relative w-full max-w-2xl bg-[#0B0F19] border-l border-white/10 shadow-2xl h-full flex flex-col z-10"
             >
-              {/* Drawer Header */}
-              <div className="flex justify-between items-center pb-6 border-b border-white/5 mb-8">
+              {/* FIXED STICKY HEADER FRAME */}
+              <div className="flex justify-between items-center p-6 md:p-10 pb-6 border-b border-white/5 bg-[#0B0F19] shrink-0">
                 <div className="flex items-center gap-3">
                   {activeDoc === "privacy" ? (
                     <>
@@ -219,14 +147,14 @@ export default function Footer() {
                 <button 
                   type="button"
                   onClick={() => setActiveDoc(null)}
-                  className="p-2.5 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white rounded-full transition-all cursor-pointer"
+                  className="p-2.5 bg-white/5 hover:bg-white/10 text-gray-400 hover:text-white rounded-full transition-all cursor-pointer focus:outline-none"
                 >
                   <X className="w-5 h-5" />
                 </button>
               </div>
 
-              {/* Legal Document Content */}
-              <div className="flex-1 text-gray-300 space-y-6 text-sm font-light leading-relaxed pr-2 overflow-y-auto">
+              {/* ISOLATED SCROLLABLE CONTENT AREA */}
+              <div className="flex-1 overflow-y-auto px-6 md:px-10 py-6 text-gray-300 space-y-6 text-sm font-light leading-relaxed">
                 {activeDoc === "privacy" ? (
                   <>
                     <p className="italic text-gray-400 bg-white/5 p-4 rounded-lg border border-white/5">
@@ -282,12 +210,12 @@ export default function Footer() {
                 )}
               </div>
 
-              {/* Drawer Bottom Action */}
-              <div className="pt-6 border-t border-white/5 mt-8 flex justify-end">
+              {/* FIXED STICKY BOTTOM ACTION */}
+              <div className="p-6 md:p-10 pt-6 border-t border-white/5 bg-[#0B0F19] flex justify-end shrink-0">
                 <button
                   type="button"
                   onClick={() => setActiveDoc(null)}
-                  className="px-6 py-3 bg-[#00FF88] hover:bg-[#00FF88]/90 text-black font-mono font-bold tracking-wider rounded text-xs uppercase transition-all cursor-pointer"
+                  className="px-6 py-3 bg-[#00FF88] hover:bg-[#00FF88]/90 text-black font-mono font-bold tracking-wider rounded text-xs uppercase transition-all cursor-pointer focus:outline-none"
                 >
                   Accept Terms
                 </button>
