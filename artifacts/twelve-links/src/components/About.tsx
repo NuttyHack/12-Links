@@ -18,7 +18,7 @@ export default function About() {
 
   const keyFacts = [
     { label: "Founded", value: "2026" },
-    { label: "Headquartered", value: "Johannesburg" },
+    { label: "Headquartered", value: "Pretoria" },
     { label: "Co-Founders", value: "7 Students" },
     { label: "Mission", value: "Pan-African" },
   ];
