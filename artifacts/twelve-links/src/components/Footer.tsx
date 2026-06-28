@@ -6,7 +6,7 @@ import { Linkedin,Twitter, X, Github, ShieldCheck, FileText } from "lucide-react
 export default function Footer() {
   const [activeDoc, setActiveDoc] = useState<"privacy" | "terms" | null>(null);
 
-  // Prevent background scrolling when a legal document is open
+
   useEffect(() => {
     if (activeDoc) {
       document.body.style.overflow = "hidden";
