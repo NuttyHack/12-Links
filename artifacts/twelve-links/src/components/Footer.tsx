@@ -42,7 +42,7 @@ export default function Footer() {
             
             {/* Social Icons */}
             <div className="flex gap-4">
-              <a href="https://www.linkedin.com/in/twelve-links-464b553bb/" target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-background border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#00FF88] hover:border-[#00FF88]/50 transition-all hover:scale-105">
+              <a href="https://www.linkedin.com/company/12-links/ " target="_blank" rel="noreferrer" className="w-10 h-10 rounded-full bg-background border border-white/10 flex items-center justify-center text-gray-400 hover:text-[#00FF88] hover:border-[#00FF88]/50 transition-all hover:scale-105">
                 <span className="sr-only">LinkedIn</span>
                 <Linkedin className="w-4 h-4" />
               </a>
